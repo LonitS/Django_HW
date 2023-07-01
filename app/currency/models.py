@@ -8,8 +8,20 @@ class Rate(models.Model):
     created = models.DateTimeField()
     source = models.CharField(max_length=70)
 
+    def __str__(self):
+        return f'{self.buy}' \
+               f'{self.sell}' \
+               f'{self.currency_type}' \
+               f'{self.created}' \
+               f'{self.source}'
+
 
 class ContactUS(models.Model):
     email_from = models.EmailField()
     subject = models.CharField(max_length=120)
     message = models.TextField()
+
+    def __str__(self):
+        return f'{self.email_from}' \
+               f'{self.subject}' \
+               f'{self.message}'
