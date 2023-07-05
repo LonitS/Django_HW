@@ -25,4 +25,6 @@ urlpatterns = [
     path('rate_list/', views.rate_list),
     path('contact_us/', views.contact_us),
     path('hello-world/', views.hello_world),
+    path('template/', views.test_template),
+
 ]

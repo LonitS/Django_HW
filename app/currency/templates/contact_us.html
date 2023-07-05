@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Message</th>
+        </tr>
+
+        {% for rate in rates %}
+            <tr>
+                <td>{{ data.id }}</td>
+                <td>{{ data.email_from }}</td>
+                <td>{{ data.subject }}</td>
+                <td>{{ data.message }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}
