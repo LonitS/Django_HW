@@ -28,7 +28,9 @@ def contact_us(request):
 
     for row in rows:
         results.append(
-            f'ID: {row.id}, email_from: {row.email_from}, subject: {row.subject},'
+            f'ID: {row.id}, '
+            f'email_from: {row.email_from}, '
+            f'subject: {row.subject},'
             f' message: {row.message}'
         )
 
