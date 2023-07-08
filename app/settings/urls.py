@@ -22,9 +22,18 @@ import currency.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rate_list/', views.rate_list),
     path('contact_us/', views.contact_us),
     path('hello-world/', views.hello_world),
     path('template/', views.test_template),
+    path('rate_list/', views.rate_list),
+    path('source_list/', views.source_list),
+    path('rate/update/<int:pk>/', views.rate_update),
+    path('rate/delete/<int:pk>/', views.rate_delete),
+    path('rate/details/<int:pk>/', views.rate_details),
+    path('rate/create/', views.rate_create),
+    path('source/create/', views.source_create),
+    path('source/update/<int:pk>/', views.source_update),
+    path('source/delete/<int:pk>/', views.source_delete),
+    path('source/details/<int:pk>/', views.source_details),
 
 ]

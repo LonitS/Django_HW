@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Rate List
+{% endblock title %}
+
+{% block content %}
+<a href="/source/create/">Create</a><br>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Source URL</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    {% for row in data %}
+    <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.source_url }}</td>
+        <td><a href="/source/details/{{ row.id }}/">Details</a></td>
+        <td><a href="/source/update/{{ row.id }}/">Edit</a></td>
+        <td><a href="/source/delete/{{ row.id }}/">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
