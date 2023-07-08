@@ -1,4 +1,5 @@
 from django.http.response import HttpResponse
+from django.shortcuts import render
 
 # from currency.models import Rate
 import currency.models as models
@@ -9,29 +10,24 @@ def hello_world(request):
 
 
 def rate_list(request):
-    results = []
     rates = models.Rate.objects.all()
-
-    for rate in rates:
-        results.append(
-            f'ID: {rate.id}, sell: {rate.sell}, buy: {rate.buy},'
-            f' created: {rate.created}, type: {rate.currency_type},'
-            f' source: {rate.source}'
-        )
-
-    return HttpResponse(str(results))
+    context = {
+        'rates': rates
+    }
+    return render(request, 'rate_list.html', context)
 
 
 def contact_us(request):
-    results = []
-    rows = models.ContactUS.objects.all()
+    data = models.ContactUS.objects.all()
+    context = {
+        'data': data
+    }
+    return render(request, 'contact_us.html', context)
 
-    for row in rows:
-        results.append(
-            f'ID: {row.id}, '
-            f'email_from: {row.email_from}, '
-            f'subject: {row.subject},'
-            f' message: {row.message}'
-        )
 
-    return HttpResponse(str(results))
+def test_template(request):
+    name = request.GET.get('name')
+    context = {
+        'username': name
+    }
+    return render(request, 'test.html', context)
