@@ -25,3 +25,12 @@ class ContactUS(models.Model):
         return f'{self.email_from}' \
                f'{self.subject}' \
                f'{self.message}'
+
+
+class Source(models.Model):
+    name = models.CharField(max_length=64)
+    source_url = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f'{self.name}' \
+               f'{self.source_url}'

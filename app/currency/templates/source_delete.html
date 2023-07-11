@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete Source
+{% endblock title %}
+
+{% block content %}
+    Are you sure to delete source id: {{ data.id }}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, i`m sure!</button>
+    </form>
+{% endblock content %}

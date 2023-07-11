@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Rate Details
+{% endblock title %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Buy</th>
+        <th>Sell</th>
+        <th>Currency</th>
+        <th>Source</th>
+        <th>Created</th>
+    </tr>
+    <tr>
+        <td>{{ data.id }}</td>
+        <td>{{ data.buy }}</td>
+        <td>{{ data.sell }}</td>
+        <td>{{ data.currency }}</td>
+        <td>{{ data.source }}</td>
+        <td>{{ data.created }}</td>
+    </tr>
+</table>
+{% endblock content %}
