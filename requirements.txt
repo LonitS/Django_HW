@@ -2,3 +2,4 @@ Django==4.2.2
 flake8
 flake8-builtins
 flake8-django
+django-debug-toolbar
