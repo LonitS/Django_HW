@@ -1,6 +1,5 @@
 <div class="menu-bar">
-    <a href="/rate_list/">Rates</a>
-    <a href="/source_list/">Source</a>
-    <a href="/contact_us/">Contact us</a>
-    <a href="/template/">Template</a>
+    <a href="{% url 'currency:rate_list' %}">Rates</a>
+    <a href="{% url 'currency:source_list' %}">Source</a>
+    <a href="{% url 'contact_us' %}">Contact us</a>
 </div>

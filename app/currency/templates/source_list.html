@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Rate List
+Source List
 {% endblock title %}
 
 {% block content %}
-<a href="/source/create/">Create</a><br>
+<a href="{% url 'currency:source_create' %}">Create</a><br>
 <table>
     <tr>
         <th>ID</th>
@@ -13,16 +13,17 @@ Rate List
         <th>Source URL</th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
 
-    {% for row in data %}
+    {% for row in source_list %}
     <tr>
         <td>{{ row.id }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.source_url }}</td>
-        <td><a href="/source/details/{{ row.id }}/">Details</a></td>
-        <td><a href="/source/update/{{ row.id }}/">Edit</a></td>
-        <td><a href="/source/delete/{{ row.id }}/">Delete</a></td>
+        <td><a href="{% url 'currency:source_details' row.id %}">Details</a></td>
+        <td><a href="{% url 'currency:source_update' row.id %}">Edit</a></td>
+        <td><a href="{% url 'currency:source_delete' row.id %}">Delete</a></td>
     </tr>
     {% endfor %}
 </table>
