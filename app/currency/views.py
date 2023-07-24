@@ -4,38 +4,55 @@ from django.views.generic import ListView, CreateView, UpdateView, DetailView, D
 from django.urls import reverse_lazy
 from django.conf import settings  # For Emails data in settings
 from django.core.mail import send_mail
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 import currency.forms as forms
 import currency.models as models
 
 
-class RateListView(ListView):
+class RateListView(LoginRequiredMixin, ListView):
     queryset = models.Rate.objects.all()
     template_name = 'rate_list.html'
 
+    def get_object(self, queryset=None):
+        return self.request.user
 
-class RateCreateView(CreateView):
+
+class RateCreateView(UserPassesTestMixin, CreateView):
     form_class = forms.RateForm
     template_name = 'rate_create.html'
     success_url = reverse_lazy('currency:rate_list')
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class RateUpdateView(UpdateView):
+
+class RateUpdateView(UserPassesTestMixin, UpdateView):
     model = models.Rate
     form_class = forms.RateForm
     template_name = 'rate_create.html'
     success_url = reverse_lazy('currency:rate_list')
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class RateDetailView(DetailView):
+
+class RateDetailView(UserPassesTestMixin, DetailView):
     model = models.Rate
     template_name = 'rate_details.html'
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class RateDeleteView(DeleteView):
+
+class RateDeleteView(UserPassesTestMixin, DeleteView):
     model = models.Rate
     template_name = 'rate_delete.html'
     success_url = reverse_lazy('currency:rate_list')
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 class SourceListView(ListView):
@@ -105,11 +122,19 @@ class ContactUSCreateView(CreateView):
         return redirect
 
 
-'''
-def contact_us(request):
-    data = models.ContactUS.objects.all()
-    context = {
-        'data': data
-    }
-    return render(request, 'contact_us.html', context)
-'''
+class ProfileView(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    template_name = 'registration/profile_update.html'
+    success_url = reverse_lazy('index')
+    fields = (
+        'first_name',
+        'last_name'
+    )
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset().filter(id=self.request.user.id)
+    #     print(queryset)
+    #     return queryset
+
+    def get_object(self, queryset=None):
+        return self.request.user
