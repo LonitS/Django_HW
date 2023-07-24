@@ -18,4 +18,5 @@ urlpatterns = [
     path('source/delete/<int:pk>/', views.SourceDeleteView.as_view(), name='source_delete'),
     path('source/details/<int:pk>/', views.SourceDetailView.as_view(), name='source_details'),
 
+    path('contactus/create/', views.ContactUSCreateView.as_view(), name='contactus-create'),
 ]

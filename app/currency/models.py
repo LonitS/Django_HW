@@ -1,5 +1,6 @@
 from django.db import models
 from currency.models_choices import RateCurrencyChoices
+from django.utils.translation import gettext_lazy as _
 
 
 class Rate(models.Model):
@@ -21,14 +22,18 @@ class Rate(models.Model):
 
 
 class ContactUS(models.Model):
-    email_from = models.EmailField()
-    subject = models.CharField(max_length=120)
-    message = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(_('Name'), max_length=128, default='default_value')
+    reply_to = models.EmailField(_('Email'))
+    subject = models.CharField(_('Subject'), max_length=128)
+    body = models.TextField(_('Body'), blank=True)
 
     def __str__(self):
-        return f'{self.email_from}' \
+        return f'{self.reply_to}' \
                f'{self.subject}' \
-               f'{self.message}'
+               f'{self.created}' \
+               f'{self.name}' \
+               f'{self.body}'
 
 
 class Source(models.Model):
@@ -38,3 +43,25 @@ class Source(models.Model):
     def __str__(self):
         return f'{self.name}' \
                f'{self.source_url}'
+
+
+class RequestResponseLog(models.Model):
+    path = models.CharField(max_length=255)
+    request_method = models.CharField(max_length=255)
+    time = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.path}' \
+               f'{self.request_method}' \
+               f'{self.time}'
+
+    @classmethod
+    def create(cls, path, request_method, time):
+        rq_rs_log = cls(
+            path=path,
+            request_method=request_method,
+            time=time
+
+        )
+        # do something with the book
+        return rq_rs_log

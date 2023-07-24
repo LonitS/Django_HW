@@ -22,7 +22,7 @@ import currency.views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__debug__/", include('debug_toolbar.urls')),
-    path('contact_us/', views.contact_us, name='contact_us'),
+    # path('contact_us/', views.contact_us, name='contact_us'),
     path('currency/', include('currency.urls')),
-    path('', views.IndexView.as_view())
+    path('', views.IndexView.as_view(), name='index')
 ]

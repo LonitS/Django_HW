@@ -1,8 +1,9 @@
 # from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
 from django.urls import reverse_lazy
-
+from django.conf import settings  # For Emails data in settings
+from django.core.mail import send_mail
 
 import currency.forms as forms
 import currency.models as models
@@ -70,9 +71,45 @@ class IndexView(TemplateView):
     template_name = 'index.html'
 
 
+class ContactUSCreateView(CreateView):
+    model = models.ContactUS
+    template_name = 'contuctus_create.html'
+    success_url = reverse_lazy('index')
+    fields = (
+        'name',
+        'reply_to',
+        'subject',
+        'body'
+    )
+
+    def _send_mail(self):
+        recipient = settings.DEFAULT_FROM_EMAIL
+        subject = 'User Contuct US'
+        body = f'''
+                Request from: {self.object.name}.
+                Email to reply: {self.object.reply_to}.
+                Subject: {self.object.subject}.
+                Body: Test {self.object.body}.
+                '''
+        send_mail(
+            subject,
+            body,
+            recipient,
+            [self.object.reply_to],
+            fail_silently=False
+        )
+
+    def form_valid(self, form):
+        redirect = super().form_valid(form)
+        self._send_mail()
+        return redirect
+
+
+'''
 def contact_us(request):
     data = models.ContactUS.objects.all()
     context = {
         'data': data
     }
     return render(request, 'contact_us.html', context)
+'''
